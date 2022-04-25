@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  development:
+    container_name: devutilsnext_dev
+    image: devutilsnext_dev
+    restart: "no"
+    build:
+      context: .
+    command: dev
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    working_dir: /app
+    ports:
+      - "3000:3000" 
