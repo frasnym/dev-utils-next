@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Emoji } from "react-component-utility";
 import { FaSearch } from "react-icons/fa";
-import { VscJson } from "react-icons/vsc";
+import { VscJson, VscSymbolString } from "react-icons/vsc";
 import { Button } from "../../ui/Button";
 
 // TODO: Responsive SideBar
@@ -18,6 +18,11 @@ const menuList = [
     symbol: <VscJson />,
     text: "JSON Format/Validate",
     href: "/tools/json-format-validate",
+  },
+  {
+    symbol: <VscSymbolString />,
+    text: "Base64 String Encode/Decode",
+    href: "/tools/base64-string-encode-decode",
   },
 ];
 
