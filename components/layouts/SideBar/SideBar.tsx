@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Emoji } from "react-component-utility";
 import { FaSearch } from "react-icons/fa";
+import { SiCurl } from "react-icons/si";
 import { VscJson, VscSymbolString } from "react-icons/vsc";
 import { Button } from "../../ui/Button";
 
@@ -29,6 +30,11 @@ const menuList = [
     text: "Base64 String Encode/Decode",
     href: "/tools/base64-string-encode-decode",
   },
+  {
+    symbol: <SiCurl />,
+    text: "URL Encode/Decode",
+    href: "/tools/url-encode-decode",
+  },
 ];
 
 const SideBar: NextPage = () => {
@@ -43,9 +49,7 @@ const SideBar: NextPage = () => {
 
   useEffect(() => {
     if (searchText.length > 0) {
-      const temp = menuList.filter((m) =>
-        m.text.toLowerCase().includes(searchText.toLowerCase())
-      );
+      const temp = menuList.filter((m) => m.text.toLowerCase().includes(searchText.toLowerCase()));
       setFilteredMenus(temp);
     } else {
       setFilteredMenus(menuList);
@@ -85,22 +89,14 @@ const SideBar: NextPage = () => {
       <div className="px-5 py-2 border-t border-gray-700">
         <ul className="flex justify-center w-full bg-gray-800">
           <li>
-            <a
-              href="https://linktr.ee/frasnym"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://linktr.ee/frasnym" target="_blank" rel="noreferrer">
               <Button onClick={() => {}} color="light" size="xs">
                 <Emoji symbol="💝" /> Support
               </Button>
             </a>
           </li>
           <li>
-            <a
-              href="mailto:frastyawan.nym@gmail.com"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="mailto:frastyawan.nym@gmail.com" target="_blank" rel="noreferrer">
               <Button onClick={() => {}} color="light" size="xs">
                 <Emoji symbol="📫" /> Feedback
               </Button>
