@@ -1,12 +1,5 @@
 import type { NextPage } from "next";
-import { ChangeEvent } from "react";
-
-type SingleRadio = {
-  isChecked: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-  label: string;
-};
+import { SingleRadio } from "../../../types";
 
 interface RadioButtonProps {
   name: string;
