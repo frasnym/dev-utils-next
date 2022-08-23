@@ -20,6 +20,11 @@ const menuList = [
     href: "/tools/json-format-validate",
   },
   {
+    symbol: <VscJson />,
+    text: "JSON Escape/Unescape",
+    href: "/tools/json-escape-unescape",
+  },
+  {
     symbol: <VscSymbolString />,
     text: "Base64 String Encode/Decode",
     href: "/tools/base64-string-encode-decode",
@@ -48,17 +53,17 @@ const SideBar: NextPage = () => {
   }, [searchText]);
 
   return (
-    <div className="w-64 absolute sm:relative bg-gray-800 shadow md:h-full flex-col justify-between hidden sm:flex">
+    <div className="absolute flex-col justify-between hidden w-64 bg-gray-800 shadow sm:relative md:h-full sm:flex">
       <div className="p-5">
         <div className="flex justify-center w-full">
           <div className="relative mb-2">
-            <div className="text-gray-500 absolute ml-4 inset-0 m-auto w-4 h-4">
+            <div className="absolute inset-0 w-4 h-4 m-auto ml-4 text-gray-500">
               <FaSearch />
             </div>
             <input
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              className="focus:outline-none rounded w-full text-sm text-gray-500 bg-gray-100 pl-10 py-2"
+              className="w-full py-2 pl-10 text-sm text-gray-500 bg-gray-100 rounded focus:outline-none"
               type="text"
               placeholder="Search"
             />
@@ -78,7 +83,7 @@ const SideBar: NextPage = () => {
         </ul>
       </div>
       <div className="px-5 py-2 border-t border-gray-700">
-        <ul className="w-full flex justify-center bg-gray-800">
+        <ul className="flex justify-center w-full bg-gray-800">
           <li>
             <a
               href="https://linktr.ee/frasnym"
