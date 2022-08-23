@@ -8,29 +8,29 @@ import { ButtonGenerator } from "../../components/ButtonGenerator";
 import { ButtonGeneratorProps } from "../../components/ButtonGenerator/props";
 import { TextArea } from "../../components/ui/TextArea";
 
-const SAMPLE_TEXT = String.raw`This is sample text.`;
+const SAMPLE_TEXT = String.raw`https://www.example.com?search=abc&limit=5`;
 const funcNames = ["Encode", "Decode"];
 
-function encodeBase64(data: string) {
-  return Buffer.from(data).toString("base64");
+function encodeString(data: string) {
+  return encodeURIComponent(data);
 }
 
-function decodeBase64(data: string) {
-  return Buffer.from(data, "base64").toString("ascii");
+function decodeString(data: string) {
+  return decodeURIComponent(data);
 }
 
-const Base64StringEncodeDecode: NextPage = () => {
+const UrlEncodeDecode: NextPage = () => {
   const [funcName, setFuncName] = useState<string>(funcNames[0].toLowerCase());
   const [inputText, setInputText] = useState<string>(SAMPLE_TEXT);
-  const [outputText, setOutputText] = useState<string>(encodeBase64(inputText));
+  const [outputText, setOutputText] = useState<string>(encodeString(inputText));
 
   useEffect(() => {
     switch (funcName) {
       case funcNames[0].toLowerCase():
-        setOutputText(encodeBase64(inputText));
+        setOutputText(encodeString(inputText));
         return;
       case funcNames[1].toLowerCase():
-        setOutputText(decodeBase64(inputText));
+        setOutputText(decodeString(inputText));
         return;
       default:
         return;
@@ -88,4 +88,4 @@ const Base64StringEncodeDecode: NextPage = () => {
   );
 };
 
-export default Base64StringEncodeDecode;
+export default UrlEncodeDecode;

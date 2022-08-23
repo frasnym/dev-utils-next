@@ -19,7 +19,7 @@ function unescapeString(data: string) {
   return data.replace(/\\/g, "");
 }
 
-const Base64StringEncodeDecode: NextPage = () => {
+const JsonEscapeUnescape: NextPage = () => {
   const [funcName, setFuncName] = useState<string>(funcNames[0].toLowerCase());
   const [jsonInput, setJsonInput] = useState<string>(SAMPLE_TEXT);
   const [jsonOutput, setJsonOutput] = useState<string>(escapeString(jsonInput));
@@ -88,4 +88,4 @@ const Base64StringEncodeDecode: NextPage = () => {
   );
 };
 
-export default Base64StringEncodeDecode;
+export default JsonEscapeUnescape;
