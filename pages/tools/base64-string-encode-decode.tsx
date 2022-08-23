@@ -1,9 +1,15 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { Base64StringInput } from "../../components/pages/Base64StringEncodeDecode/Base64StringInput";
-import { Base64StringOutput } from "../../components/pages/Base64StringEncodeDecode/Base64StringOutput";
+import { ChangeEvent } from "react";
+import { FuncSelect } from "../../components/FuncSelect";
+import { FuncSelectProps } from "../../components/FuncSelect/props";
+import { ColumnLayout } from "../../components/layouts/ColumnLayout";
+import { ButtonGenerator } from "../../components/ButtonGenerator";
+import { ButtonGeneratorProps } from "../../components/ButtonGenerator/props";
+import { TextArea } from "../../components/ui/TextArea";
 
-const SAMPLE_TEXT = "This is sample text.";
+const SAMPLE_TEXT = String.raw`This is sample text.`;
+const funcNames = ["Encode", "Decode"];
 
 function encodeBase64(data: string) {
   return Buffer.from(data).toString("base64");
@@ -14,34 +20,71 @@ function decodeBase64(data: string) {
 }
 
 const Base64StringEncodeDecode: NextPage = () => {
-  const [base64Input, setBase64Input] = useState<string>(SAMPLE_TEXT);
-  const [isEncode, setIsEncode] = useState<boolean>(true);
-  const [base64Output, setBase64Output] = useState<string>(
-    encodeBase64(base64Input)
-  );
+  const [funcName, setFuncName] = useState<string>(funcNames[0].toLowerCase());
+  const [inputText, setInputText] = useState<string>(SAMPLE_TEXT);
+  const [outputText, setOutputText] = useState<string>(encodeBase64(inputText));
 
   useEffect(() => {
-    setBase64Output(
-      isEncode ? encodeBase64(base64Input) : decodeBase64(base64Input)
-    );
-  }, [base64Input, isEncode]);
+    switch (funcName) {
+      case funcNames[0].toLowerCase():
+        setOutputText(encodeBase64(inputText));
+        return;
+      case funcNames[1].toLowerCase():
+        setOutputText(decodeBase64(inputText));
+        return;
+      default:
+        return;
+    }
+  }, [funcName, inputText]);
 
-  const base64StringInputProps = {
-    sampleInput: SAMPLE_TEXT,
-    base64Input,
-    setBase64Input,
-    isEncode,
-    setIsEncode,
+  const inputButtonGeneratorProps: ButtonGeneratorProps = {
+    label: "Input:",
+    settings: {
+      includeSample: true,
+      sampleText: SAMPLE_TEXT,
+      includeClear: true,
+      includeFromClipboard: true,
+    },
+    targetText: inputText,
+    setTargetText: setInputText,
+  };
+
+  const outputButtonGeneratorProps: ButtonGeneratorProps = {
+    label: "Output:",
+    settings: {
+      includeToClipboard: true,
+      includeUseAsInput: true,
+    },
+    targetText: outputText,
+    setTargetText: setInputText,
+  };
+
+  const funcSelectProps: FuncSelectProps = {
+    currentFuncName: funcName,
+    setFuncName,
+    values: funcNames,
   };
 
   return (
-    <div className="flex flex-col gap-2 h-full w-full">
-      <Base64StringInput {...base64StringInputProps} />
-      <Base64StringOutput
-        base64Output={base64Output}
-        setBase64Input={setBase64Input}
-      />
-    </div>
+    <ColumnLayout>
+      <div className="flex flex-col grow">
+        <div className="flex flex-row justify-between">
+          <ButtonGenerator {...inputButtonGeneratorProps} />
+          <FuncSelect {...funcSelectProps} />
+        </div>
+        <TextArea
+          placeholder="Your input..."
+          value={inputText}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInputText(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col grow">
+        <div className="flex flex-row justify-between">
+          <ButtonGenerator {...outputButtonGeneratorProps} />
+        </div>
+        <TextArea placeholder="Your output..." value={outputText} />
+      </div>
+    </ColumnLayout>
   );
 };
 

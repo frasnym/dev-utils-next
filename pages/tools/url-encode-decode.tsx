@@ -19,7 +19,7 @@ function decodeString(data: string) {
   return decodeURIComponent(data);
 }
 
-const Base64StringEncodeDecode: NextPage = () => {
+const UrlEncodeDecode: NextPage = () => {
   const [funcName, setFuncName] = useState<string>(funcNames[0].toLowerCase());
   const [inputText, setInputText] = useState<string>(SAMPLE_TEXT);
   const [outputText, setOutputText] = useState<string>(encodeString(inputText));
@@ -88,4 +88,4 @@ const Base64StringEncodeDecode: NextPage = () => {
   );
 };
 
-export default Base64StringEncodeDecode;
+export default UrlEncodeDecode;
