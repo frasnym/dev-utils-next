@@ -17,3 +17,9 @@ export type SingleRadio = {
   value: string;
   label: string;
 };
+
+export type Tool = {
+  symbol: JSX.Element;
+  text: string;
+  href: string;
+}
