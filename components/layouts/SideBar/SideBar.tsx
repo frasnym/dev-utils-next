@@ -2,76 +2,33 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Emoji } from "react-component-utility";
-import { FaSearch } from "react-icons/fa";
-import { SiCurl } from "react-icons/si";
-import { VscJson, VscSymbolString } from "react-icons/vsc";
+import { Tool } from "../../../types";
+import { TOOLS_AVAILABLE } from "../../../utils/constant";
 import { Button } from "../../ui/Button";
+import { SearchInput } from "../../ui/SearchInput";
 
 // TODO: Responsive SideBar
 
-const menuList = [
-  {
-    symbol: <Emoji symbol="⏱" />,
-    text: "Unix Time Converter",
-    href: "/tools/unix-time-converter",
-  },
-  {
-    symbol: <VscJson />,
-    text: "JSON Format/Validate",
-    href: "/tools/json-format-validate",
-  },
-  {
-    symbol: <VscJson />,
-    text: "JSON Escape/Unescape",
-    href: "/tools/json-escape-unescape",
-  },
-  {
-    symbol: <VscSymbolString />,
-    text: "Base64 String Encode/Decode",
-    href: "/tools/base64-string-encode-decode",
-  },
-  {
-    symbol: <SiCurl />,
-    text: "URL Encode/Decode",
-    href: "/tools/url-encode-decode",
-  },
-];
-
 const SideBar: NextPage = () => {
   const [searchText, setSearchText] = useState<string>("");
-  const [filteredMenus, setFilteredMenus] = useState<
-    {
-      symbol: JSX.Element;
-      text: string;
-      href: string;
-    }[]
-  >(menuList);
+  const [filteredMenus, setFilteredMenus] = useState<Tool[]>(TOOLS_AVAILABLE);
 
   useEffect(() => {
     if (searchText.length > 0) {
-      const temp = menuList.filter((m) => m.text.toLowerCase().includes(searchText.toLowerCase()));
+      const temp = TOOLS_AVAILABLE.filter((m) =>
+        m.text.toLowerCase().includes(searchText.toLowerCase())
+      );
       setFilteredMenus(temp);
     } else {
-      setFilteredMenus(menuList);
+      setFilteredMenus(TOOLS_AVAILABLE);
     }
   }, [searchText]);
 
   return (
     <div className="absolute flex-col justify-between hidden w-64 bg-gray-800 shadow sm:relative md:h-full sm:flex">
       <div className="p-5">
-        <div className="flex justify-center w-full">
-          <div className="relative mb-2">
-            <div className="absolute inset-0 w-4 h-4 m-auto ml-4 text-gray-500">
-              <FaSearch />
-            </div>
-            <input
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="w-full py-2 pl-10 text-sm text-gray-500 bg-gray-100 rounded focus:outline-none"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
+        <div className="flex justify-center w-full mb-2">
+          <SearchInput value={searchText} onChange={setSearchText} />
         </div>
         <ul className="space-y-2">
           {filteredMenus.map((menu) => (
