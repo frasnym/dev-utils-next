@@ -1,6 +1,7 @@
 import { Emoji } from "react-component-utility";
 import { SiCurl } from "react-icons/si";
 import { VscJson, VscSymbolString } from "react-icons/vsc";
+import { IoText } from "react-icons/io5";
 import { Tool } from "../types";
 
 export const TOOLS_AVAILABLE: Tool[] = [
@@ -28,5 +29,10 @@ export const TOOLS_AVAILABLE: Tool[] = [
     symbol: <SiCurl />,
     text: "URL Encode/Decode",
     href: "/tools/url-encode-decode",
+  },
+  {
+    symbol: <IoText />,
+    text: "String Counter",
+    href: "/tools/string-counter",
   },
 ];
