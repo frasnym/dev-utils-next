@@ -37,7 +37,7 @@ const Home: NextPage = () => {
         <h3 className="mb-2 text-2xl font-semibold">Start here</h3>
         <SearchInput value={input} onChange={setInput} />
       </div>
-      <div>{toolsBtnEl}</div>
+      <div className="text-center">{toolsBtnEl}</div>
     </div>
   );
 };
